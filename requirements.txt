@@ -1,4 +1,4 @@
 tensorflow-cpu==2.16.1
-streamlit==1.32.0
+streamlit==1.56.0
 numpy==1.26.4
-pandas==2.2.1
+pandas==3.0.2
