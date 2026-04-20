@@ -4,27 +4,31 @@ import pickle
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-
+import os
 # Set page config
 st.set_page_config(page_title="Next Word Predictor", page_icon="🚀")
 
 # 1. Load the pre-trained components
+
+
 @st.cache_resource
 def load_assets():
-    # Load the model
-    # If the error persists after upgrade, we load without compilation
-    model = load_model('lstm_model1.h5', compile=False)
+    # Get the current directory to avoid path errors on Linux
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    model_path = os.path.join(current_dir, 'lstm_model1.h5')
+    
+    # Load the model - using compile=False is key for cross-platform compatibility
+    model = load_model(model_path, compile=False)
     
     # Load the tokenizer
-    with open('tokenizer.pkl', 'rb') as f:
+    with open(os.path.join(current_dir, 'tokenizer.pkl'), 'rb') as f:
         tokenizer = pickle.load(f)
         
-    # Load max_len (Value is 745 based on your data)
-    with open('max_len.pkl', 'rb') as f:
+    # Load max_len
+    with open(os.path.join(current_dir, 'max_len.pkl'), 'rb') as f:
         max_len = pickle.load(f)
         
     return model, tokenizer, max_len
-
 try:
     model, tokenizer, max_len = load_assets()
 except Exception as e:
