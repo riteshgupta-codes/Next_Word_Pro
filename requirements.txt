@@ -1,5 +1,5 @@
 tensorflow-cpu==2.16.1
-streamlit==1.56.0
-numpy==2.4.4
-pandas==3.0.2
+streamlit
+numpy>=1.23.5,<2.0.0
+pandas
 pickle5
